@@ -1,0 +1,16 @@
+task set FSS_Real with 5 tasks and 4 locks is
+lock Datos_Vuelo;
+lock Comandos_PR;
+lock Sem_Maniobra;
+lock Gestor_Modo;
+task T_Colision is periodic (0, 250, 0, 0, 5, 0, 20, 250, 0)
+uses Datos_Vuelo (2), Sem_Maniobra (1);
+task T_Altitud is periodic (0, 200, 0, 0, 10, 0, 15, 200, 0)
+uses Datos_Vuelo (2), Comandos_PR (1), Gestor_Modo (1), Sem_Maniobra (1);
+task T_Velocidad is periodic (0, 300, 0, 0, 8, 0, 10, 300, 0)
+uses Datos_Vuelo (2), Comandos_PR (1);
+task T_Boton is periodic (0, 100, 0, 0, 2, 0, 9, 100, 0)
+uses Gestor_Modo (1);
+task T_Pantalla is periodic (0, 1000, 0, 0, 15, 0, 5, 1000, 0)
+uses Datos_Vuelo (5), Gestor_Modo (1);
+end FSS_Real;
